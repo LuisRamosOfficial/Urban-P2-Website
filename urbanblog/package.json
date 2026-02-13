@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@netlify/plugin-nextjs": "^5.15.8",
+    "@solidjs/meta": "^0.29.4",
     "@solidjs/router": "^0.15.0",
     "@solidjs/start": "^1.1.0",
     "solid-js": "^1.9.5",
@@ -15,6 +16,8 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.0.7",
+    "sass": "^1.97.3",
+    "sass-embedded": "^1.97.3",
     "tailwindcss": "^4.0.7"
   },
   "engines": {

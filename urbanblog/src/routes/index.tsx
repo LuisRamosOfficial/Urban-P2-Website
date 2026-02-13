@@ -3,8 +3,8 @@ import Counter from "~/components/Counter";
 
 export default function Home() {
   return (
-    <main class="text-center mx-auto text-gray-700 p-4">
-      Urban P2
+    <main class="">
+      Urban P2 fininho
     </main>
   );
 }
