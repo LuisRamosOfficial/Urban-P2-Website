@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import "./globals.scss";
 
 
@@ -26,6 +27,7 @@ export default function RootLayout({
 const Navbar = () => {
 
   return (<nav>
+    <Image src="/urbanp2.jpeg" alt="Logo" width={100} height={100} />
     <h1>Urban P2: The Archives</h1>
   </nav>)
 
