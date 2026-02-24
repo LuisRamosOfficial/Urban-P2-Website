@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import "./globals.scss";
-
+import { AuthHandler } from "./Components/AuthHandler";
 
 export const metadata: Metadata = {
   title: "Urban P2: The Archives",
@@ -16,8 +16,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <AuthHandler>
         <Navbar />
         {children}
+        </AuthHandler>
       </body>
     </html>
   );
