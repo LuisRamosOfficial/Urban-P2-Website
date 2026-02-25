@@ -30,15 +30,28 @@ body {
     width: 100%;
     top: 0;
     align-items: center;
+    justify-content: space-between;
     left: 0;
     padding: 1rem;
     background-color: rgb(94, 29, 29);
-    img {
-      width: 50px;
-      height: 50px;
-      margin-right: 1rem;
-      border-radius: 100%;
+    div.nav-left {
+      display: flex;
+      align-items: center;
+      img {
+        width: 50px;
+        height: 50px;
+        margin-right: 1rem;
+        border-radius: 100%;
+      }
     }
+
+
+      div.nav-right {
+        margin-right: 5rem;
+        align-items: center;
+        display: flex;
+        gap: 1rem;
+      }
   }
 }
 

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import "./globals.scss";
-import { AuthHandler } from "./Components/AuthHandler";
+import { AuthHandler, useAuth } from "./Components/AuthHandler";
+import AuthButton from "./Components/Layout/loginbutton";
 
 export const metadata: Metadata = {
   title: "Urban P2: The Archives",
@@ -27,10 +28,18 @@ export default function RootLayout({
 
 
 const Navbar = () => {
-
   return (<nav>
+    <div className="nav-left">
     <Image src="/urbanp2.jpeg" alt="Logo" width={100} height={100} />
     <h1>Urban P2: The Archives</h1>
+    </div>
+    <div className="nav-right">
+      <a href="/">Home</a>
+      <a href="/projects">Projects</a>
+      <a href="/about">About</a>
+      
+      <AuthButton />
+    </div>
   </nav>)
 
 }
