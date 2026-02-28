@@ -2,8 +2,8 @@
 import styles from "./page.module.scss";
 import Image from "next/image";
 import { auth, db } from "@/app/Components/Firebase"; // Importa as instâncias do teu ficheiro de configuração
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -25,6 +25,39 @@ const Register = () => {
   const [error, setError] = useState("");
   const router = useRouter();
 
+
+
+  const handleGoogleLogin = async () => {
+    setError("");
+    const provider = new GoogleAuthProvider();
+
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Verificar se o utilizador já existe no Firestore para não sobrescrever dados antigos
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (!userSnap.exists()) {
+        // Se for um novo utilizador, criamos o documento dele
+        await setDoc(userRef, {
+          username: user.displayName || "Google User",
+          email: user.email,
+          role: "reader",
+          pfp: user.photoURL || "default",
+          createdAt: new Date(),
+        });
+      }
+    
+      router.push("/");
+    } catch (err: any) {
+      if (err.code !== 'auth/cancelled-popup-request') {
+        setError("Erro ao entrar com Google: " + err.message);
+      }
+    }
+  };
+  
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
@@ -64,9 +97,10 @@ const Register = () => {
         username: username,
         email: email,
         role: "reader",
+        pfp: "default",
         createdAt: new Date(),
       });
-
+      
       // 3. Redirecionar para a Home após sucesso
       router.push("/");
     } catch (err: any) {
@@ -83,7 +117,7 @@ const Register = () => {
       <div className={styles["register-box"]}>
         <div className={styles.esquerdo}>
           <h2>Register from an external platform</h2>
-          <button className={styles.googlebtn}>
+          <button onClick={handleGoogleLogin} className={styles.googlebtn}>
             <Image src="/google.png" alt="Google Logo" width={50} height={50} />
             Register with Google
           </button>

@@ -1,2 +1,103 @@
 
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
 
+main.register {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  div.register-box {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .esquerdo,
+    .direito {
+      flex: 1; // Faz com que ambos ocupem o mesmo espaço
+      padding: 2rem;
+      text-align: center;
+    }
+    .direito {
+        form {
+            margin-top: 3rem;
+            display: flex;
+            width: 100%;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            label {
+                width: 80%;
+                justify-content: space-between;
+                align-items: center;
+                font-weight: bold;
+                font-size: 1.2rem;
+                display: flex;
+            }
+            input {
+                padding: 0.5rem;
+                width: 100%;
+                outline: none;
+                border: none;
+                background-color: white;
+                color: black;
+                max-width: 300px;
+                border: 1px solid #ccc;
+                border-radius: 4rem;
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            button {
+                padding: 0.5rem 1rem;
+                background-color: #5e1d1d; // Cor bordô da navbar
+                color: white;
+                border: none;
+                border-radius: 20rem;
+                font-size: 1.2rem;
+                font-weight: bold;
+                cursor: pointer;
+                &:hover {
+                    background-color: #4a1515; // Cor de hover
+                }
+            }
+        }
+    }
+
+    .esquerdo {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .googlebtn {
+            display: flex;
+             font-family: "Google Sans", sans-serif;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff; // Cor azul do Google
+            color: rgb(44, 44, 44);
+            padding: 0.5rem 1rem;
+            border: none;
+            gap: 2rem;
+            outline: none;
+            border-radius: 20rem;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            cursor: pointer;
+            &:hover {
+                background-color: #e7e7e7; // Cor de hover
+            }
+        }
+    }
+    .central {
+      width: 2px; // Largura do traço
+      height: 300px; // Altura do traço
+      background-color: #2e2e2e; // Usando a cor bordô da tua navbar
+      border-radius: 2px; // Suaviza as pontas do traço
+    }
+  }
+}

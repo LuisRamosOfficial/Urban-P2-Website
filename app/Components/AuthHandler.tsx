@@ -38,3 +38,9 @@ export const AuthHandler = ({ children }: { children: React.ReactNode }) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+
+
+export const getUserDoc = async (uid: string) => {
+  const userDoc = await getDoc(doc(db, "users", uid));
+  return userDoc.exists() ? userDoc.data() : null;
+}
