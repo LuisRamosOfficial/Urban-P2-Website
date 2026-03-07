@@ -58,6 +58,20 @@ body {
         align-items: center;
         display: flex;
         gap: 1rem;
+        a#admin {
+          background-color: white;
+          padding: 1rem;
+          color: black;
+          border-radius: 3rem;
+          font-weight: bold;
+          transition: transform 50ms ease-out;
+          &:hover {
+            transform: scale(1.1);
+          }
+          &:active {
+            transform: scale(0.95);
+          }
+        }
       }
   }
 }

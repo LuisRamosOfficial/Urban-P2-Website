@@ -4,7 +4,7 @@ import { useAuth } from "../Components/AuthHandler";
 import { db } from "@/app/Components/Firebase";
 import { doc, getDoc } from "firebase/firestore";
 import styles from "./styles.module.scss";
-import ProtectedRoute from "../Components/ProtectMiddleware";
+import { ProtectedRoute } from "../Components/ProtectMiddleware";
 import { AvatarSection } from "../Components/Manage/IconChanger";
 import { updateUsername } from "../Components/Services/userServices";
 

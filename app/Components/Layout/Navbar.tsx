@@ -8,14 +8,20 @@ import AuthButton from "./loginbutton";
 
 
 const Navbar = () => {
+  const { user, isAdmin, loading } = useAuth();
 
   return (<nav>
     <div className="nav-left">
     <Image onClick={() => window.location.href = '/'} src="/urbanp2.jpeg" alt="Logo" width={100} height={100} />
-    <h1 onClick={() => window.location.href = '/'}>Urban P2: The Archives</h1>
+    <h1 onClick={() => window.location.href = '/'}>{!loading && user && isAdmin ? (
+          "Urban P2: Admin View"
+        ) : (
+          "Urban P2: The Archives"
+        )}</h1>
     </div>
     <div className="nav-right">
       <a href="/">Home</a>
+      {isAdmin && <a id="admin" href="/admin">Admin</a>}
       <a href="/projects">Projects</a>
       <a href="/about">About</a>
       

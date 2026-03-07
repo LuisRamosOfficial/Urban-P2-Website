@@ -2,10 +2,15 @@
 import styles from "./page.module.scss";
 import Image from "next/image";
 import { auth, db } from "@/app/Components/Firebase"; // Importa as instâncias do teu ficheiro de configuração
-import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { GuestRoute } from "../Components/ProtectMiddleware";
 
 const validateEmail = (email: string) => {
   return /\S+@\S+\.\S+/.test(email);
@@ -24,8 +29,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
-
-
 
   const handleGoogleLogin = async () => {
     setError("");
@@ -49,16 +52,16 @@ const Login = () => {
           createdAt: new Date(),
         });
       }
-    
+
       router.push("/");
     } catch (err: any) {
-      if (err.code !== 'auth/cancelled-popup-request') {
+      if (err.code !== "auth/cancelled-popup-request") {
         setError("Erro ao entrar com Google: " + err.message);
       }
     }
   };
-  
- const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
@@ -70,7 +73,11 @@ const Login = () => {
       router.push("/");
     } catch (err: any) {
       // Tratamento de erros comuns de login
-      if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+      if (
+        err.code === "auth/user-not-found" ||
+        err.code === "auth/wrong-password" ||
+        err.code === "auth/invalid-credential"
+      ) {
         setError("Email ou password incorretos.");
       } else {
         setError("Erro ao entrar: " + err.message);
@@ -79,46 +86,53 @@ const Login = () => {
   };
 
   return (
-    <main className={styles.register}>
-      <h1>Login</h1>
-      <p>Please choose a way to login an account.</p>
-      {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
-      <div className={styles["register-box"]}>
-        <div className={styles.esquerdo}>
-          <h2>Login from an external platform</h2>
-          <button onClick={handleGoogleLogin} className={styles.googlebtn}>
-            <Image src="/google.png" alt="Google Logo" width={50} height={50} />
-            Login with Google
-          </button>
-        </div>
-        <div className={styles.central}></div>
-        <div className={styles.direito}>
-          <h2>Login with Email and Password</h2>
+    <GuestRoute>
+      <main className={styles.register}>
+        <h1>Login</h1>
+        <p>Please choose a way to login an account.</p>
+        {error && <p style={{ color: "red", textAlign: "center" }}>{error}</p>}
+        <div className={styles["register-box"]}>
+          <div className={styles.esquerdo}>
+            <h2>Login from an external platform</h2>
+            <button onClick={handleGoogleLogin} className={styles.googlebtn}>
+              <Image
+                src="/google.png"
+                alt="Google Logo"
+                width={50}
+                height={50}
+              />
+              Login with Google
+            </button>
+          </div>
+          <div className={styles.central}></div>
+          <div className={styles.direito}>
+            <h2>Login with Email and Password</h2>
 
-          <form className={styles.form} onSubmit={handleLogin}>
-            <label htmlFor="email">
-              Email:
-              <input
-                type="email"
-                id="email"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </label>
-            <label htmlFor="password">
-              Password:
-              <input
-                type="password"
-                id="password"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </label>
-            <button type="submit">Login</button>
-          </form>
+            <form className={styles.form} onSubmit={handleLogin}>
+              <label htmlFor="email">
+                Email:
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </label>
+              <label htmlFor="password">
+                Password:
+                <input
+                  type="password"
+                  id="password"
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </label>
+              <button type="submit">Login</button>
+            </form>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </GuestRoute>
   );
 };
 
