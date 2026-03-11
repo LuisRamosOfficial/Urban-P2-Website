@@ -1,25 +1,102 @@
 main.admin {
-    width: 100%;
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: 1fr 2fr;
-    grid-template-columns: 1fr 3fr;
-    grid-template-areas: "header header"
-                        "sidebar main";
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: 20rem 1fr;
+  grid-template-columns: 1fr 3fr;
+  grid-template-areas:
+    "header header"
+    "sidebar main";
 
-    section.header {
-        grid-area: header;
-        padding-top: 7rem;
-        text-align: center;
+  section.header {
+    grid-area: header;
+    padding-top: 7rem;
+    text-align: center;
+  }
+  section.sidebar {
+    h3 {
+      margin-left: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 5rem;
     }
-    section.sidebar {
-        grid-area: sidebar;
-        background-color: #202020;
-        padding: 20px;
-    }
-    section.main {
-        grid-area: main;
+    grid-area: sidebar;
+    background-color: #202020;
+    padding: 0px;
+    div.button {
+      width: 100%;
+
+      display: flex;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 10px 4rem;
+      height: 3rem;
+      &:hover {
         background-color: #141414;
-        padding: 20px;
+      }
+      span {
+        font-size: 1.9rem;
+        transform: translateY(-1px);
+        margin-right: 0.5rem;
+      }
     }
-}   
+    div.button.active {
+      background-color: #ffffff;
+      color: #141414;
+    }
+  }
+  section.main {
+    grid-area: main;
+    background-color: #141414;
+    padding: 5rem;
+    .mainframe {
+      min-height: 100%;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      .post {
+        cursor: pointer;
+        transition: transform 100ms ease-out;
+        &:hover {
+          transform: scale(1.02);
+        }
+        span {
+          width: 100%;
+          height: 100%;
+        }
+        h3 {
+          text-align: center;
+          margin-top: 1rem;
+          display: -webkit-box; // Necessário para o line-clamp funcionar
+          -webkit-line-clamp: 2; // Define o limite de 2 linhas
+          line-clamp: 2;
+          -webkit-box-orient: vertical; // Define a orientação do box
+          overflow: hidden; // Esconde o texto que ultrapassa as 2 linhas
+          text-overflow: ellipsis; // Adiciona os "..." no final da segunda linha
+
+          // Dica de Ouro: Altura consistente
+          line-height: 1.5rem; // Define a altura de cada linha
+          max-height: 3rem;
+        }
+        display: grid;
+        overflow: hidden;
+        border-radius: 3rem;
+        grid-template-rows: 1fr 3fr;
+        width: 14rem;
+        height: 20rem;
+        background-color: #202020;
+        margin: 1rem;
+      }
+      span {
+        display: flex;
+        width: 10rem;
+        height: 10rem;
+        position: relative;
+        align-self: center;
+      }
+    }
+  }
+}

@@ -25,6 +25,7 @@ body {
   width: 100vw;
   min-height: 100vh;
   nav {
+    z-index: 99;
     display: flex;
     position: fixed;
     width: 100%;
