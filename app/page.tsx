@@ -33,10 +33,9 @@ const Home = () => {
           </span>
           <h1 data-aos="fade-up" className={styles.title}>Welcome to my Blog!</h1>
           <p data-aos="fade-up" data-aos-delay="200" className={styles.description}>
-            Explore my projects and experiences with urbanism in Lisbon and more.
+            Still in construction...
           </p>
           <div className={styles.Sections}>
-            <Section title="My Projects" />
           </div>
     </main>
   );
