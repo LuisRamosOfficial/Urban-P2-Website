@@ -1,0 +1,36 @@
+div.mainframe {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    width: 100vw;
+    min-height: 100vh;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    div.postDetails {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: clamp(20rem, 80vw, 80vw);
+        background-color: #1a1a1a;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgb(36, 36, 36);
+        input.TextInput {
+            background-color: #333333;
+            border: none;
+            outline: none;
+            width: 50%;
+            text-align: center;
+            font-weight: 900;
+            font-size: 3rem;
+            padding: 10px;
+            border-radius: 5rem;
+            border-radius: 4px;
+            color: #fff;
+
+        }
+    }
+}
+

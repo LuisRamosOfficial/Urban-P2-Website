@@ -43,6 +43,7 @@ const Home = () => {
 };
 
 
+
 const Section = ({ title }: { title: string; }) => {
   return (
     <div className={styles.section} data-aos="fade-up">
