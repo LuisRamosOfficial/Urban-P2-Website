@@ -37,8 +37,18 @@ const Post = () => {
   return (<div className={styles.mainframe}>
             <h1>Manage Post</h1>
             <div className={styles.postDetails}>
+                <span className={styles.postTitle}>
+                <h2>Title: </h2>
                 <input className={styles.TextInput} type="text" value={title} placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
-           
+                </span>
+                <span className={styles.postImage}>
+                <h2>Cover Image: </h2>
+                {post?.img ? (
+                    <img src={post.img} alt="Post Image" className={styles.postImagePreview} />
+                ) : (
+                    <p>No image available</p>
+                )}
+                </span>
             </div>
         </div>);
 }
