@@ -1,17 +1,20 @@
 "use client";
+import Image from "next/image";
 import styles from "./styles.module.scss";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import {getPostById } from "@/app/Components/Services/postServices";
 import type { Post as PostType } from "@/app/Components/Services/postServices";
-import { set } from "date-fns";
+import ImageCropper from "./ImageCropper";
+import React from "react";
 
 
 const Post = () => {
     const params = useParams();
     const [post, setPost] = useState<PostType | null>(null);
-    let titleInputRef: HTMLInputElement | null = null;
-
+    const [title, setTitle] = useState(post?.title || "");
+    const [image, setImage] = useState<string | null>(null);
+    const [ModelShow, setModelShow] = useState(false);
 
 
      useEffect(() => {
@@ -32,9 +35,9 @@ const Post = () => {
     }, [params.post]);
 
 
-    const [title, setTitle] = useState(post?.title || "");
 
   return (<div className={styles.mainframe}>
+            {ModelShow && <ProfileModel setModel={setModelShow} post={post} image={image} />}
             <h1>Manage Post</h1>
             <div className={styles.postDetails}>
                 <span className={styles.postTitle}>
@@ -44,14 +47,42 @@ const Post = () => {
                 <span className={styles.postImage}>
                 <h2>Cover Image: </h2>
                 {post?.img ? (
-                    <img src={post.img} alt="Post Image" className={styles.postImagePreview} />
+                    <span className={styles.postImageContainer}>
+                        <Image src={post.img} alt="Post Image" onClick={() => document.getElementById("fileInput")?.click()} className={styles.postImagePreview} fill={true} />
+                    </span>
                 ) : (
                     <p>No image available</p>
                 )}
+                <button className={styles.uploadButton} onClick={() => document.getElementById("fileInput")?.click()}>Upload Image</button>
+                <input type="file" accept="image/*" id="fileInput"  style={{ display: "none" }} onChange={(e) => {
+                    const file = e.target.files?.[0]
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.addEventListener("load", () => {
+                            const imageUrl = reader.result as string;
+                            setImage(imageUrl);
+                            console.log("Selected file: " + imageUrl);
+                            setModelShow(true);
+                        });
+                        reader.readAsDataURL(file);
+                    }
+                    
+                }} />
                 </span>
             </div>
         </div>);
 }
 
+
+const ProfileModel = ({ setModel, post, image }: { setModel: React.Dispatch<React.SetStateAction<boolean>>, post: PostType | null, image: string | null }) => {
+
+    
+
+    return (<div onClick={() => setModel(false)} className={styles.profileModel }>
+        <div onClick={(e) => e.stopPropagation()} className={styles.Content}>
+            {image && <ImageCropper img={image} post={post} />}
+        </div>
+    </div>);
+}
 
 export default Post;
