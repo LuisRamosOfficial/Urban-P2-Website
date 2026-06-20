@@ -47,10 +47,8 @@ const Posts = () => {
     };
     fetchPosts();
   }, []);
-const listaVinte = Array.from({ length: 20 }, () => ({
-  ...posts[0],
-  id2: Math.random() // Gerar IDs diferentes para o React não reclamar da 'key'
-}));
+
+
 
 
   const gotoPost = (id: string) => {
@@ -59,10 +57,14 @@ const listaVinte = Array.from({ length: 20 }, () => ({
   }
 
   return (<div className={styles.mainframe}>
+    <button onClick={() => router.push("/admin/posts/create")} className={styles.createPostButton}>
+      <span className="material-icons">add_circle</span>
+      Create New Post
+    </button>
     {loading ? (
       <span><Image src="/spinner.svg" alt="Carregando..." fill={true}/></span>
-    ) : listaVinte.map((post) => (
-      <div key={post.id2}  className={styles.post} onClick={() => gotoPost(post.id)}>
+    ) : posts.map((post) => (
+      <div key={post.id}  className={styles.post} onClick={() => gotoPost(post.id)}>
         <h3>{post.title}</h3>
         <span><Image src={post.img} alt={post.title} fill={true}/></span>
       </div>

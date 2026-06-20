@@ -1,5 +1,5 @@
 import { db } from "@/app/Components/Firebase";
-import { collection, getDocs, getDoc, doc, query, orderBy } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, query, orderBy, updateDoc, increment } from "firebase/firestore";
 import { format, formatDistanceToNow } from 'date-fns';
 import { pt } from 'date-fns/locale';
 
@@ -12,6 +12,7 @@ export interface Post {
   date: any;       // Timestamp do Firebase
   img: string;     // URL da imagem
   title: string;
+  likes?: number;
 }
 
 // Fetches a single post by its document ID
@@ -32,6 +33,7 @@ export const getPostById = async (id: string): Promise<Post | null> => {
         date: docSnap.data().date,
         img: docSnap.data().img,
         title: docSnap.data().title,
+        likes: docSnap.data().likes || 0,
       } as Post;
     }
 
@@ -58,6 +60,7 @@ export const getAllPosts = async (): Promise<Post[]> => {
       date: doc.data().date,
       img: doc.data().img,
       title: doc.data().title,
+      likes: doc.data().likes || 0,
     })) as Post[];
   } catch (e) {
     console.error("Erro ao buscar posts: ", e);
@@ -80,4 +83,30 @@ export const formatDate = (dateInput: any) => {
   }
 
   return format(date, "d 'de' MMM", { locale: pt });
+};
+
+
+export const likePost = async (postId: string): Promise<void> => {
+    try {
+        const postRef = doc(db, "posts", postId);
+        // O increment(1) soma automaticamente 1 ao valor atual diretamente na base de dados
+        await updateDoc(postRef, {
+            likes: increment(1)
+        });
+    } catch (e) {
+        console.error("Erro ao adicionar like: ", e);
+    }
+};
+
+// Função para Remover um Like
+export const unlikePost = async (postId: string): Promise<void> => {
+    try {
+        const postRef = doc(db, "posts", postId);
+        // O increment(-1) subtrai 1
+        await updateDoc(postRef, {
+            likes: increment(-1)
+        });
+    } catch (e) {
+        console.error("Erro ao remover like: ", e);
+    }
 };
